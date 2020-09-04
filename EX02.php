@@ -12,7 +12,7 @@
     </head>
     <body>
         <h3>Chi Try & Learn</h3>
-        <h2>快訊快訊</h2>
+        <img src="banner_logo1.jpg" width = 900><br>
         <hr>
             <?php
                 include "menu.php";
@@ -42,9 +42,24 @@
             if ($result->num_rows > 0) {    //檢查紀錄的數目
                 // output data of each row
                 echo "<table width = 700>";
-                echo "<tr bgcolor=#ff8888><td> 編號 </td><td> 訊息 </td><td> 時間</td>";
+                //如果有沒登入就不會有管理欄位
+                if($user_type ==NULL)
+                    echo "<tr bgcolor=#ff8888><td> 訊息 </td><td> 時間 </td></tr>";
+                else
+                    echo "<tr bgcolor=#ff8888><td> 訊息 </td><td> 時間 </td><td> 管理 </td></tr>";
+                //內部資料顯示
                 while($row = $result->fetch_assoc()) {
-                    echo "<tr><td>" . $row["id"]. "</td><td>" . $row["message"]. "</td><td>" . $row["postdate"]. "</td></tr>";
+                    $id = $row["id"];
+
+                    echo "<tr><td>" . $row["message"]. "</td><td>" . $row["postdate"]. "</td>";
+                    if($user_type != NULL){
+                        echo "<td>";
+                        echo "<a href='edit.php?id=$id'>編輯</a>";
+                        echo " -";
+                        echo "<a href='delete.php?id=$id'> 刪除 </a>";
+                        echo "</td>";
+                        echo "</tr>";
+                    }
                 }
                 echo "</table>";
             } 
