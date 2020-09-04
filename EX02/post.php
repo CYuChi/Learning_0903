@@ -1,9 +1,8 @@
 <?php
-    $id = $_GET["id"];
-    if($id==NULL){
-        header("Location: EX02.php");
-        exit;
-    }
+
+    $message = $_POST["message"];
+    echo $message;
+
 
     //Mysql 連結
     $servername = "localhost";
@@ -15,12 +14,11 @@
     $conn = new mysqli($servername, $username, $password, $dbname);
     // Check connection
     if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+        die("Connection failed: " . $conn->connect_error);
     }
-
-    $sql = "DELETE FROM news WHERE  id = '$id' LIMIT 1";
+    $sql = "INSERT INTO news (message) values ('$message')";
     $result = $conn->query($sql);
-    $conn->close();
-    header("Location: EX02.php");
-
+    $conn -> close();
+    header("Location: index.php");
+    exit;
 ?>

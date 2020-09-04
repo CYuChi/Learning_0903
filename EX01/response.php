@@ -8,4 +8,4 @@
     echo "alert('$birthday');";
     echo "</script>";
 ?>
-<button><a href="EX01.php">重新選擇</a></button>
+<button><a href="index.php">重新選擇</a></button>

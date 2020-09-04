@@ -4,10 +4,10 @@
 
     // option 用結合陣列去建構
     $menudata = array(
-        array("name" => "回首頁" ,  "link" => "index.php"),
-        array("name" => "Try 1" ,   "link" => "EX01.php"),
-        array("name" => "Try 2" ,   "link" => "EX02.php"),
-        array("name" => "Try 3" ,   "link" => "EX03.php"),
+        array("name" => "回首頁" ,  "link" => "/mysite/0903/index.php"),
+        array("name" => "Try 1" ,   "link" => "/mysite/0903/EX01/index.php"),
+        array("name" => "Try 2" ,   "link" => "/mysite/0903/EX02/index.php"),
+        array("name" => "Try 3" ,   "link" => "/mysite/0903/EX03/EX03.php"),
         array("name" => "中工" ,   "link" => "http://www.tcivs.tc.edu.tw/ischool/publish_page/0/"),
         array("name" => "高科大" ,  "link" => "https://www.nkust.edu.tw/" )
     );

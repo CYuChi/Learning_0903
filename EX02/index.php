@@ -8,14 +8,14 @@
     <head>
         <meta charset = "utf-8">
         <title>Chi Try & Learn</title>
-        <link rel="stylesheet" type="text/css" href="EX02.css">
+        <link rel="stylesheet" type="text/css" href="../css/EX02.css">
     </head>
     <body>
         <h3>Chi Try & Learn</h3>
-        <img src="banner_logo1.jpg" width = 900><br>
+        <img src="../images/banner_logo1.jpg" width = 900><br>
         <hr>
             <?php
-                include "menu.php";
+                include "../includes/menu.php";
             ?>
         <hr>
         <?php
@@ -72,7 +72,7 @@
         ?>
         <hr>
         <?php
-            include "footer.php";
+            include "../includes/footer.php";
         ?>
     </body>
 </html>

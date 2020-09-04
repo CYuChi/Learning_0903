@@ -1,11 +1,10 @@
 <?php
-    $message = $_POST["message"];
-    $id = $_POST["id"];
+    $id = $_GET["id"];
     if($id==NULL){
-        header("Location: EX02.php");
+        header("Location: index.php");
         exit;
     }
-    
+
     //Mysql 連結
     $servername = "localhost";
     $username = "root";
@@ -18,10 +17,10 @@
     if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
     }
-    //使用UPDATE指令找出要編輯得對象
-    $sql = "UPDATE news SET message='$message' WHERE id = '$id' LIMIT 1";
+
+    $sql = "DELETE FROM news WHERE  id = '$id' LIMIT 1";
     $result = $conn->query($sql);
     $conn->close();
-    header("Location: EX02.php");
-    exit;
+    header("Location: index.php");
+
 ?>

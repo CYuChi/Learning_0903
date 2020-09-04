@@ -1,7 +1,7 @@
 <?php
     $id = $_GET["id"];
     if($id==NULL){
-        header("Location: EX02.php");
+        header("Location: index.php");
         exit;
     }
 
@@ -28,16 +28,16 @@
         $message = $row["message"];
         echo "<form method=POST action=update.php>";
         echo "<input type=hidden value=$id name=id>";
-        echo "訊息 ( 請修改 ) ： <input type=text value = $message size = 30 name = message>";
+        echo "訊息 ( 請修改 ) ： <input type=text value = '$message' size = 30 name = message>";
         echo "<input type=submit value=修改>";
         echo "</form>";
-        echo "<a href = 'EX02.php'>不修改，直接回去</a>";
+        echo "<a href = 'index.php'>不修改，直接回去</a>";
         
         //echo "<td>" . $row["message"]. "</td><td>" . $row["postdate"]. "</td>";
     } 
     else {
         echo "找不到要編輯的紀錄<br>";
-        echo "<a href='EX02.php'>回上頁</a>";
+        echo "<a href='index.php'>回上頁</a>";
     }
     $conn->close();
     //header("Location: EX02.php");

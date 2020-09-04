@@ -1,9 +1,11 @@
 <?php
-
     $message = $_POST["message"];
-    echo $message;
-
-
+    $id = $_POST["id"];
+    if($id==NULL){
+        header("Location: index.php");
+        exit;
+    }
+    
     //Mysql 連結
     $servername = "localhost";
     $username = "root";
@@ -14,11 +16,12 @@
     $conn = new mysqli($servername, $username, $password, $dbname);
     // Check connection
     if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
+    die("Connection failed: " . $conn->connect_error);
     }
-    $sql = "INSERT INTO news (message) values ('$message')";
+    //使用UPDATE指令找出要編輯得對象
+    $sql = "UPDATE news SET message='$message' WHERE id = '$id' LIMIT 1";
     $result = $conn->query($sql);
-    $conn -> close();
-    header("Location: EX02.php");
+    $conn->close();
+    header("Location: index.php");
     exit;
 ?>

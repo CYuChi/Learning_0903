@@ -16,7 +16,7 @@
         <h3>Chi Try & Learn</h3>
         <h2>0903 Try1</h2>
         <hr>
-            <?php   include "menu.php"; ?>
+            <?php   include "../includes/menu.php"; ?>
         <hr>
        
         <form method=POST action="response.php">
@@ -41,6 +41,6 @@
         </form> 
         
         <hr>
-        <?php   include "footer.php";   ?>
+        <?php   include "../includes/footer.php";   ?>
     </body>
 </html>
