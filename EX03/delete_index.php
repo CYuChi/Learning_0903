@@ -20,6 +20,8 @@
 
     $sql = "DELETE FROM playlist WHERE  id = '$id' LIMIT 1";
     $result = $conn->query($sql);
+    $sql = "DELETE FROM video WHERE  pid = '$id' ";
+    $result = $conn->query($sql);
     $conn->close();
     header("Location: index.php");
 

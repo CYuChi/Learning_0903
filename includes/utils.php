@@ -17,6 +17,19 @@
         $conn->close();  
     }
 
+    function get_video_number($id){
+        global $conn;
+        $sql = "SELECT COUNT(*) AS numbers from video WHERE pid='$id'";
+        $result = $conn -> query($sql);
+        if($result -> num_rows >0){
+            $row = $result -> fetch_assoc();
+            $numbers = $row["numbers"];
+        }
+        else
+            $numbers = 0;
+        return $numbers ;
+    }
+
 
 
 

@@ -54,13 +54,13 @@
                 //內部資料顯示
                 while($row = $result->fetch_assoc()) {
                     $id = $row["id"];
-
-                    echo "<tr><td><a href=tvshow.php?pid=$id>" . $row["name"]. "</a></td>";
+                    $name = $row["name"];
+                    echo "<tr><td><a href=tvshow.php?pid=$id&name=$name>" . $row["name"]. "</a> ( " . get_video_number($id) . " 支影片 )</td>";
                     if($user_type != NULL){
                         echo "<td>";
-                        echo "<a href='edit_index.php?id=$id'>編輯</a>";
+                        echo "<a href='edit_index.php?id=$id&name=$name'>編輯</a>";
                         echo " -";
-                        echo "<a href='delete_index.php?id=$id'> 刪除 </a>";
+                        echo "<a href='delete_index.php?id=$id&name=$name'> 刪除 </a>";
                         echo "</td>";
                         echo "</tr>";
                     }

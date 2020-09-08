@@ -2,7 +2,7 @@
     $pid = $_GET["pid"];
     session_start(); 
     $user_type = $_SESSION["user_type"];
-
+    $page_name = $_GET["name"];
 ?>
 <!DOCTYPE html>
 <html>
@@ -13,7 +13,7 @@
     </head>
     <body>
         <h3>Chi Try & Learn</h3>
-        <h1>選的播放清單</h1>
+        <h1><?php echo $page_name ?></h1>
         <hr>
             <?php
                 include "../includes/menu.php";?>
@@ -23,22 +23,14 @@
             $sql = "SELECT * FROM video WHERE pid='$pid'";
             $result = $conn->query($sql);
             //如果未登入顯示登入
-            if($user_type == NULL){
-                echo "<form method='POST' action='checkpass.php'>";
-                echo "密碼 : <input type=password name=password>";
-                echo "<input type=submit value=登入>";
-                echo "</form>";
-            }
-            //如果登入了顯示登出
-            else{
+            if($user_type != NULL){
                 echo "<form method=POST action=post_tv.php>";
+                echo "<input type=hidden value='$page_name' name= name>";
+                echo "<input type=hidden value='$pid' name=pid>";
                 echo "影片標題 : <input type=text name=title size = 40><br>";
                 echo "影片網址 : <input type=text name=vid size = 40><br>";
-                echo "影片清單(數字) : <input type=text name=pid size = 3><br>";
                 echo "<input type=submit value=新增>";
                 echo "</form>";
-                echo "<button><a href=logout.php>登出</a></button>";
-                echo "<hr>";
             }       
 
             if ($result->num_rows > 0) {    //檢查紀錄的數目
@@ -58,9 +50,9 @@
 
                     if($user_type != NULL){
                         echo "<td>";
-                        echo "<a href='edit_tv.php?id=$id'>編輯</a>";
+                        echo "<a href='edit_tv.php?id=$id&name=$page_name&pid=$pid'>編輯</a>";
                         echo " -";
-                        echo "<a href='delete_tv.php?id=$id'> 刪除 </a>";
+                        echo "<a href='delete_tv.php?id=$id&name=$page_name&pid=$pid'> 刪除 </a>";
                         echo "</td>";
                     }
                     echo "</tr>";

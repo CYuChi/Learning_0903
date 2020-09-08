@@ -1,5 +1,7 @@
 <?php
     $id = $_GET["id"];
+    $name = $_GET["name"];
+    $pid = $_GET["pid"];
     if($id==NULL){
         header("Location: index.php");
         exit;
@@ -21,6 +23,6 @@
     $sql = "DELETE FROM video WHERE  id = '$id' LIMIT 1";
     $result = $conn->query($sql);
     $conn->close();
-    header("Location: tvshow.php");
+    header("Location: tvshow.php?pid=$pid&name=$name");
 
 ?>

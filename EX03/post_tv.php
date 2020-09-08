@@ -3,6 +3,7 @@
     $title = $_POST["title"];
     $vid = $_POST["vid"];
     $pid = $_POST["pid"];
+    $name = $_POST["name"];
 
     //echo $title . $vid . $pid;    test
 
@@ -18,12 +19,18 @@
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
-    $sql = "INSERT INTO video (title , vid , pid ) 
-    VALUES ('$title' , '$vid' , '$pid')";
+    
+    
+    $sql = "SELECT * FROM video WHERE vid='$vid'";
+    $result = $conn -> query($sql);
 
-    $result = $conn->query($sql);
+    if ($result->num_rows == 0) {
+        $sql = "INSERT INTO video (title , vid , pid ) 
+        VALUES ('$title' , '$vid' , '$pid')";
+        $conn->query($sql);
+    }
     $conn -> close();
-    header("Location: index.php");
+    header("Location: tvshow.php?pid=$pid&name=$name");
     exit;
     
 ?>
