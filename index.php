@@ -1,15 +1,14 @@
 <?php 
+    require "includes/utils.php";
     session_start(); 
     $username = $_SESSION["username"];
-    $email = $_SESSION["email"];
-
 ?>
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset = "utf-8">
         <title>Chi Try & Learn</title>
-        <link rel="stylesheet" type="text/css" href="../css/index.css">
+        <link rel="stylesheet" type="text/css" href="css/index.css">
     </head>
     <body>
         <h3>Chi Try & Learn</h3>
@@ -17,11 +16,13 @@
         <hr>
             <?php
                 include "includes/menu.php";
+                include "includes/footer.php";
             ?>
         <hr>
         <?php
-
-            include "includes/footer.php";
+            get_counter("homepage");
+            
+            
         ?>
     </body>
 </html>
