@@ -1,19 +1,31 @@
 <?php 
     $pid = $_GET["pid"];
-    $vid = $_GET["vid"];
     session_start(); 
     $user_type = $_SESSION["user_type"];
     $page_name = $_GET["name"];
-    $tag = "https://www.youtube.com/embed/^^^^";
     $imgtag = "https://i.ytimg.com/vi/^^^^/hqdefault.jpg";
 ?>
+<script>
+    function choice_change(vid){
+        var vid = vid ;
+        var mycont=document.getElementById("screen");
+        mycont.innerHTML=video_change(vid) ;
+    }
 
+    function video_change(vid){
+        var vid = vid ;
+        var video_source = 'https://www.youtube.com/embed/'+vid;
+        htmlstr= "<iframe  width='560' height='315' src='"+ video_source +"' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>";
+        return htmlstr;
+    }
+
+</script>
 <html>
     <head>
         <meta charset = "utf-8">
         <title>Chi Try & Learn</title>
         <link rel="stylesheet" type="text/css" href="../css/EX02.css">
-        <script src="tvshow.js"></script>
+        <!-- <script src="tvshow.js"></script> -->
     </head>
     <body style="margin:0 auto ; border:0">
         <h3>Chi Try & Learn</h3>
@@ -34,13 +46,10 @@
                 echo "</form>";
             }       
         ?>
-        <!-- 初始化影片 -->
         
         <!-- 嵌入youtube影片 use html -->
         <div id="screen" style="margin:10 auto  ; position:relative ; left:35% ">
-            <?php
-                echo "<iframe  width='560' height='315' src='" . str_replace("^^^^",$vid , $tag). "'frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>";
-            ?>
+            <iframe  width="560" height="315" src="https://www.youtube.com/embed/" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
 
         <?php
@@ -48,24 +57,30 @@
             $sql = "SELECT * FROM video WHERE pid='$pid'";
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {    //檢查紀錄的數目
-                echo "<center>";
-                // 影片集的TABLE
-                echo "<table width=800>";
-                // 如果放在迴圈裏面 ，</tr>會自己補上
-                echo "<tr>";
-                $vc = 0;
+                // output data of each row
+                echo "<table width = 1000>";
+                //如果有沒登入就不會有管理欄位
+                if($user_type ==NULL)
+                    echo "<tr bgcolor=#ff8888><td> 標題 </td><td>影片ID</td></tr>";
+                else
+                    echo "<tr bgcolor=#ff8888><td> 標題 </td><td>影片ID</td><td> 管理 </td></tr>";
+                //內部資料顯示
                 while($row = $result->fetch_assoc()) {
                     $id = $row["id"];
                     $vid = $row['vid'];
-                    echo "<td><a href=javascript:choice_change('". $row['vid']."');>" . $row["title"] . "</a><br>";
-                    echo "<img src='" . str_replace("^^^^",$row["vid"] , $imgtag). "'width=200>";
-                    echo "</td>";
-                    $vc++;
-                    if($vc % 4 == 0)
-                        echo "</tr>";
-                    
+                    echo "<tr>";
+                    echo "<td><a href=javascript:choice_change('". $row['vid']."');>" . $row["title"] . "</a></td>";
+                    echo "<td><img src='" . str_replace("^^^^",$row["vid"] , $imgtag). "'width=200></td>";
+
+                    if($user_type != NULL){
+                        echo "<td>";
+                        echo "<a href='edit_tv.php?id=$id&name=$page_name&pid=$pid'>編輯</a>";
+                        echo " -";
+                        echo "<a href='delete_tv.php?id=$id&name=$page_name&pid=$pid'> 刪除 </a>";
+                        echo "</td>";
+                    }
+                    echo "</tr>";
                 }
-                echo "</tr>";
                 echo "</table>";
             } 
             else 

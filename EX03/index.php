@@ -55,7 +55,13 @@
                 while($row = $result->fetch_assoc()) {
                     $id = $row["id"];
                     $name = $row["name"];
-                    echo "<tr><td><a href=tvshow.php?pid=$id&name=$name>" . $row["name"]. "</a> ( " . get_video_number($id) . " 支影片 )</td>";
+                    
+                    $sql = "SELECT * FROM video WHERE pid='$id'";
+                    $r = $conn->query($sql);
+                    $yap = $r->fetch_assoc();
+                    $vid = $yap["vid"];
+
+                    echo "<tr><td><a href=tvshow.php?pid=$id&name=$name&vid=$vid>" . $row["name"]. "</a> ( " . get_video_number($id) . " 支影片 )</td>";
                     if($user_type != NULL){
                         echo "<td>";
                         echo "<a href='edit_index.php?id=$id&name=$name'>編輯</a>";
