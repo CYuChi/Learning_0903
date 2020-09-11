@@ -4,14 +4,29 @@
     $user_type = $_SESSION["user_type"];
     $page_name = $_GET["name"];
 ?>
-<!DOCTYPE html>
+<script>
+    function choice_change(vid){
+        var vid = vid ;
+        var mycont=document.getElementById("screen");
+        mycont.innerHTML=video_change(vid) ;
+    }
+
+    function video_change(vid){
+        var vid = vid ;
+        var video_source = 'https://www.youtube.com/embed/'+vid;
+        htmlstr= "<iframe  width='560' height='315' src='"+ video_source +"' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>";
+        return htmlstr;
+    }
+
+</script>
 <html>
     <head>
         <meta charset = "utf-8">
         <title>Chi Try & Learn</title>
         <link rel="stylesheet" type="text/css" href="../css/EX02.css">
+        <!-- <script src="tvshow.js"></script> -->
     </head>
-    <body>
+    <body style="margin:0 auto ; border:0">
         <h3>Chi Try & Learn</h3>
         <h1><?php echo $page_name ?></h1>
         <hr>
@@ -19,9 +34,6 @@
                 include "../includes/menu.php";?>
         <hr>
         <?php
-            //order by ""  <<<<< sql 針對 "" 查詢
-            $sql = "SELECT * FROM video WHERE pid='$pid'";
-            $result = $conn->query($sql);
             //如果未登入顯示登入
             if($user_type != NULL){
                 echo "<form method=POST action=post_tv.php>";
@@ -32,7 +44,17 @@
                 echo "<input type=submit value=新增>";
                 echo "</form>";
             }       
+        ?>
+        
+        <!-- 嵌入youtube影片 use html -->
+        <div id="screen" style="margin:10 auto  ; position:relative ; left:35% ">
+            <iframe  width="560" height="315" src="https://www.youtube.com/embed/" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
 
+        <?php
+            //order by ""  <<<<< sql 針對 "" 查詢
+            $sql = "SELECT * FROM video WHERE pid='$pid'";
+            $result = $conn->query($sql);
             if ($result->num_rows > 0) {    //檢查紀錄的數目
                 // output data of each row
                 echo "<table width = 1000>";
@@ -44,8 +66,9 @@
                 //內部資料顯示
                 while($row = $result->fetch_assoc()) {
                     $id = $row["id"];
+                    $vid = $row['vid'];
                     echo "<tr>";
-                    echo "<td>" . $row["title"] . "</td>";
+                    echo "<td><a href=javascript:choice_change('". $row['vid']."');>" . $row["title"] . "</a></td>";
                     echo "<td>" . $row["vid"] . "</td>";
 
                     if($user_type != NULL){
